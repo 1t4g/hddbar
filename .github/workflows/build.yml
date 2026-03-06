@@ -44,8 +44,9 @@ jobs:
         run: docker build -t hdd-destruction .
 
       # Загружаем артефакты (например, отчеты)
+# Вместо v3 используем v4
       - name: Upload reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: reports
-          path: reports/
+            name: reports
+            path: reports/
