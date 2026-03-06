@@ -5,7 +5,7 @@
 
 A Flask-based web application for managing hard drive serial numbers, tracking erase events, and generating reports.   
 for local use
----
+
 
 ## 🔧 Features
 
