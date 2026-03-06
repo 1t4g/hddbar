@@ -1,4 +1,4 @@
-# HDD Erase Tracking System
+# HDDBAR - HDD Serial number barcode scanner 
 
 Use a barcode scanner for work, place the cursor in the area "Click hire" click to put a carriage.
 
