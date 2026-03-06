@@ -30,7 +30,7 @@ All erase events are tied to that operator.
 The `/reset` feature:
 - **DELETE anything from the database**
 - clears only the displayed table **for the current operator session**
-- allows starting a new batch without losing historical data
+
 
 ### ✔ Exportable Reports
 Reports can be generated in three formats:
