@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="app">
+
+  <!-- Скан зверху -->
+  <header class="topbar topbar--scan">
+    <div class="topbar__center">
+      <div class="scan">
+        <div class="scan__label">Скан</div>
+        <input id="scanField" class="scan__input" inputmode="none" autocomplete="off" spellcheck="false"
+               placeholder="Click here" autofocus>
+        <div id="scanHint" class="scan__hint" aria-live="polite"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Кнопки під сканом -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <button class="btn btn--ghost" type="button" onclick="location.href='/reset'">Почати спочатку</button>
+      <button class="btn btn--ghost" type="button" id="openUpload">Завантажити SN</button>
+
+      <div class="export">
+        <button class="btn btn--primary" type="button" id="exportBtn">Вивантажити таблицю</button>
+        <div class="export__menu" id="exportMenu" hidden>
+          <button class="menu__item" type="button" data-export="/report/xlsx">XLSX</button>
+          <button class="menu__item" type="button" data-export="/report/csv">CSV</button>
+          <button class="menu__item" type="button" data-export="/report/pdf">PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar__right">
+      <div class="operator">
+        <div class="operator__label">Оператор</div>
+        <div class="operator__name">{{operator}}</div>
+      </div>
+      <button class="btn btn--ghost" type="button" onclick="location.href='/logout'">Вийти</button>
+    </div>
+  </header>
+
+  <!-- Основний контент -->
+  <main class="content">
+    <div class="card">
+      <div class="card__header">
+        <div class="card__title">Серійні номери</div>
+        <div class="card__meta">
+          <span>Всього: <b id="totalCount">{{ disks|length }}</b></span>
+          <span>Знищено: <b id="doneCount">{{ erased|length }}</b></span>
+        </div>
+      </div>
+
+      <div class="tableWrap">
+        <table id="snTable" class="table">
+          <thead>
+            <tr>
+              <th class="col-sn">SN</th>
+              <th class="col-status"> </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for d in disks %}
+            <tr class="row {% if d.serial_number in erased %}row--done{% endif %}" data-sn="{{d.serial_number}}">
+              <td class="cell-sn">{{d.serial_number}}</td>
+              <td class="cell-status">
+                {% if d.serial_number in erased %}
+                  <span class="check" title="Знищено" aria-label="Знищено">✓</span>
+                {% else %}
+                  <span class="check check--empty" aria-hidden="true">✓</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Модал завантаження -->
+  <div class="modal" id="uploadModal" hidden>
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+      <div class="modal__header">
+        <div class="modal__title" id="uploadTitle">Завантаження SN</div>
+        <button class="iconBtn" type="button" data-close="1" aria-label="Закрити">×</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="uploadGrid">
+          <div class="uploadBlock">
+            <div class="uploadBlock__title">Файл (TXT, 1 SN на рядок)</div>
+            <input type="file" id="fileUpload" accept=".txt,text/plain">
+          </div>
+          <div class="uploadBlock">
+            <div class="uploadBlock__title">Або вставте список</div>
+            <textarea id="textUpload" rows="8" placeholder="SN1&#10;SN2&#10;SN3"></textarea>
+          </div>
+        </div>
+        <div class="uploadActions">
+          <button class="btn btn--primary" type="button" id="doUpload">Завантажити</button>
+          <button class="btn btn--ghost" type="button" data-close="1">Скасувати</button>
+        </div>
+        <div class="uploadResult" id="uploadResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    window.__ERASED__ = new Set({{ erased|list|tojson }});
+  </script>
+  <script src="/static/script.js"></script>
+</div>
+
+{% endblock %}
