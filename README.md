@@ -52,7 +52,11 @@ Reports can be generated in three formats:
 
 ### 3. Start the server
 ```python app.py```
-Default access: 127.0.0.1:5000
+
+Default access: 
+
+```http:127.0.0.1:5000```
+
 ## 🗄 Database Structure
 
 ### `Disk` table
