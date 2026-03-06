@@ -1,5 +1,6 @@
 # HDDBAR - HDD Serial number barcode scanner 
 *Have you ever destroyed a lot of disks that needed to have serial numbers written on them?*
+
 **Use a barcode scanner for work, place the cursor in the area "Click hire" click to put a carriage.**
 
 A Flask-based web application for managing hard drive serial numbers, tracking erase events, and generating reports.   
