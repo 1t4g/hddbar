@@ -6,6 +6,7 @@
 A Flask-based web application for managing hard drive serial numbers, tracking erase events, and generating reports.   
 The system supports multiple operators and allows clearing the displayed table **only for the current operator session**, without deleting any data from the database.
 
+
 ---
 
 ## 🔧 Features
