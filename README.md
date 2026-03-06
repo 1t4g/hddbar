@@ -41,3 +41,55 @@ Reports can be generated in three formats:
 ## 📦 Installation
 
 ### 1. Clone the repository
+
+```git clone https://github.com/your/repo.git```
+
+### 2. Install the dependencies
+```pip install -r requirements.txt```
+
+### 3. Start the server
+```python app.py```
+Default access: 127.0.0.1:5000
+## 🗄 Database Structure
+
+### `Disk` table
+- `id`
+- `serial_number`
+
+### `EraseEvent` table
+- `id`
+- `serial_number`
+- `operator`
+- `method`
+- `erase_date`
+
+---
+
+## 🔗 Main Routes
+
+| Route | Description |
+|-------|-------------|
+| `/login` | Operator login |
+| `/upload` | Upload serial numbers |
+| `/scan` | Scan and record erase event |
+| `/reset` | Clear the visible table for the operator session |
+| `/report/csv` | Export CSV report |
+| `/report/xlsx` | Export XLSX report |
+| `/report/pdf` | Export PDF report |
+
+---
+
+## 📘 Example Workflow
+
+1. The operator logs in.
+2. Uploads a list of serial numbers (file or text).
+3. Scans erased disks; the system marks them accordingly.
+4. Uses `/reset` at any time to clear the current view (database remains unchanged).
+5. Generates summary reports.
+
+---
+
+## 📄 License
+MIT License.
+
+
