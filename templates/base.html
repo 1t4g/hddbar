@@ -19,7 +19,49 @@
 {% endblock %}
 
 </div>
+<script>
+let buffer = "";
 
+document.addEventListener("keydown", function(e) {
+
+    // блокируем горячие клавиши браузера
+    if (e.ctrlKey || e.altKey || e.metaKey) {
+        e.preventDefault();
+        return;
+    }
+
+    // блокируем TAB
+    if (e.key === "Tab") {
+        e.preventDefault();
+        return;
+    }
+
+    // если Enter — считаем что скан завершён
+    if (e.key === "Enter") {
+        if (buffer.length > 0) {
+            sendScan(buffer);
+            buffer = "";
+        }
+        e.preventDefault();
+        return;
+    }
+
+    // обычные символы
+    if (e.key.length === 1) {
+        buffer += e.key;
+    }
+});
+
+function sendScan(code) {
+    document.getElementById("scanField").innerText = code;
+
+    fetch("/scan", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({sn: code})
+    }).then(() => location.reload());
+}
+</script>
 </body>
 
 </html>
